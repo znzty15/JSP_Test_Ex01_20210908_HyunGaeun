@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Text
  */
-@WebServlet(urlPatterns={"/Test"},initParams={@WebInitParam(name="job",value="학생")})
+@WebServlet(urlPatterns={"/Test"}, initParams= {@WebInitParam(name="job",value="학생")})
 public class Test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -43,7 +43,8 @@ public class Test extends HttpServlet {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		String mail = request.getParameter("mail");		
-		String job = getInitParameter("job");
+		String job = request.getParameter("job");
+		String job2 = getInitParameter("job");
 		String protocol = request.getParameter("protocol");
 		
 		response.setContentType("text/html; charset=EUC-KR");
@@ -54,7 +55,10 @@ public class Test extends HttpServlet {
 		writer.println("비밀번호 : " + pw + "<br/>");	
 		writer.println("이름 : " + name + "<br/>");
 		writer.println("E-mail : " + mail + "@" + protocol + "<br/>");
-		writer.println("직업 : " + job + "<br/>");
+		if(job == "")
+			writer.println("직업 : " + job2 + "<br/>");		
+		else 
+			writer.println("직업 : " + job + "<br/>");
 		writer.println("</body></html>");		
 		writer.close();
 	}
