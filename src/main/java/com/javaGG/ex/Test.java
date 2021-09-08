@@ -3,6 +3,7 @@ package com.javaGG.ex;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Text
  */
-@WebServlet("/Test")
+@WebServlet(urlPatterns={"/Test"},initParams={@WebInitParam(name="job",value="학생")})
 public class Test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -42,7 +43,7 @@ public class Test extends HttpServlet {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		String mail = request.getParameter("mail");		
-		String job = request.getParameter("job");
+		String job = getInitParameter("job");
 		String protocol = request.getParameter("protocol");
 		
 		response.setContentType("text/html; charset=EUC-KR");
@@ -53,10 +54,8 @@ public class Test extends HttpServlet {
 		writer.println("비밀번호 : " + pw + "<br/>");	
 		writer.println("이름 : " + name + "<br/>");
 		writer.println("E-mail : " + mail + "@" + protocol + "<br/>");
-		if(job == "")
-			job = "학생";
 		writer.println("직업 : " + job + "<br/>");
-		writer.println("</body></thml>");		
+		writer.println("</body></html>");		
 		writer.close();
 	}
 
